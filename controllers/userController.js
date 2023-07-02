@@ -66,4 +66,9 @@ const getUsers = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 
-module.exports = { register, getUsers, loginUser };
+//current user info
+const getCurrentUser = asyncHandler(async (req, res) => {
+  res.json(req.user);
+});
+
+module.exports = { register, getUsers, loginUser, getCurrentUser };
