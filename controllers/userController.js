@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 // route to registe the user is api.user/register
 const register = asyncHandler(async (req, res) => {
   const { userName, email, password } = req.body;
+  console.log(req.body);
   if (!userName || !email || !password) {
     res.status(400);
     throw new Error("All fields are Required");
@@ -71,4 +72,13 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
-module.exports = { register, getUsers, loginUser, getCurrentUser };
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    res.status(404);
+    throw new Error("user not found");
+  }
+  res.status(200).json(user);
+});
+
+module.exports = { register, getUsers, loginUser, getCurrentUser, getUserById };
